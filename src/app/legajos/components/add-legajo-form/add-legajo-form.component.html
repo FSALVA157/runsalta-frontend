@@ -1,0 +1,134 @@
+<form [formGroup]="forma">
+  <div class="p-fluid p-formgrid grid">
+    
+      <div class="field col-12 md:col-6">
+          <label htmlFor="nombre">Nombre</label>
+          <input
+            pInputText
+            id="nombre"
+            type="text"
+            formControlName="nombre"           
+            [ngClass]="{'ng-dirty ng-invalid': isValidField('nombre')}"
+          />
+          <small class="p-error"
+                        *ngIf="isValidField('nombre')">
+                    >
+                        {{getFieldError('nombre')}}
+                    </small>
+        </div>        
+        <div class="field col-12 md:col-6">
+          <label htmlFor="apellido">Apellido</label>
+          <input
+            pInputText
+            id="apellido"
+            type="text"
+            formControlName="apellido"
+            [ngClass]="{'ng-dirty ng-invalid': isValidField('apellido')}"
+          />
+          <small class="p-error"
+                        *ngIf="isValidField('apellido')">
+                    >
+                        {{getFieldError('apellido')}}
+                    </small>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label htmlFor="dni">DNI</label>
+          <input
+            pInputText
+            id="dni"
+            type="text"
+            formControlName="nro_documento"
+            [ngClass]="{'ng-dirty ng-invalid': isValidField('nro_documento')}"
+          />
+          <small class="p-error"
+                        *ngIf="isValidField('nro_documento')">
+                    >
+                        {{getFieldError('nro_documento')}}
+                    </small>
+        </div>
+      <div class="field col-12 md:col-6">
+        <label htmlFor="genero">Genero</label>
+        <p-dropdown  
+          id="genero"                  
+          [options]="generos"
+          optionLabel="sexo" 
+          placeholder="Elija un genero"         
+          optionValue="id"
+          formControlName="sexo_id"
+          [ngClass]="{'ng-dirty ng-invalid': isValidField('sexo_id')}"
+        ></p-dropdown>
+        <small class="p-error"
+        *ngIf="isValidField('sexo_id')">
+    >
+        {{getFieldError('sexo_id')}}
+    </small>
+      </div>
+      <div class="field col-12 md:col-6">
+          <label htmlFor="date">Fecha Nacimiento</label>
+          <p-calendar
+            id="date"
+            formControlName="fecha_nacimiento"
+            [showIcon]="true"            
+            formControlName="fecha_nacimiento"
+          ></p-calendar>
+        </div>
+  
+  
+  
+      <div class="field col-12 md:col-6">
+        <label htmlFor="municipio">Municipio</label>
+        <p-dropdown
+          id="municipio"
+          [options]="dropdownItems"
+          optionLabel="name"
+          
+        ></p-dropdown>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label htmlFor="localidad">Localidad</label>
+        <p-dropdown
+          id="localidad"
+          [options]="dropdownItems"
+          optionLabel="name"          
+        ></p-dropdown>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label htmlFor="calle">Calle</label>
+        <input pInputText id="calle" type="text" />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label htmlFor="numero">Número</label>
+        <input disabled pInputText id="numero" type="text" />
+      </div>
+  
+      <div class="field col-12 md:col-6">
+        <label htmlFor="telefono">Teléfono</label>
+        <input
+          disabled
+          pInputText
+          id="telefono"
+          type="text"
+        />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label htmlFor="mail">Mail</label>
+        <input disabled pInputText id="mail" type="text" />
+      </div>
+    </div>
+</form>
+<div class="col-12">
+  <p-messages [value]="msgs"></p-messages>
+  <button pButton pRipple type="button" label="Guardar" class="p-button-success mr-2 mb-2" (click)="submitFormLegajo()"></button>
+</div>
+<hr>
+
+
+
+<pre>
+Estado del Formulario: {{forma.valid}}
+<br>
+Status: {{forma.status}}
+</pre>
+<pre>
+{{forma.value | json}}
+</pre>
