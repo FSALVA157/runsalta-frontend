@@ -38,7 +38,6 @@ export class LegajoModel{
         public telefono_legajo ?: string,
         public tpo_cobertura_salud ?: number,
         public tipo_documento ?: string,
-        public local_id ?: number,
         public localidad_id ?: number,
         public municipio_id ?: number,
         public nacionalidad_id ?: number,
@@ -46,6 +45,7 @@ export class LegajoModel{
         public pais_id ?: number,
         public provincia_id ?: number,
         public acompaniante_id ?: number,
-        public zonal_id ?: number
+        public equipot_id ?: number,
+        public serviciol_id ?: number
          ){}
 }

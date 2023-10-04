@@ -72,48 +72,29 @@
             formControlName="fecha_nacimiento"
           ></p-calendar>
         </div>
-  
-  
+
+        <div class="field col-12 md:col-6">
+          <label htmlFor="equipot">Equipo Territorial</label>
+          <p-dropdown
+            id="equipot"
+            [options]="equipost_list"
+            optionLabel="nombre"          
+            optionValue="id"
+            formControlName="equipot_id"
+          ></p-dropdown>
+        </div>  
   
       <div class="field col-12 md:col-6">
-        <label htmlFor="municipio">Municipio</label>
+        <label htmlFor="servicio">Servicio Local</label>
         <p-dropdown
-          id="municipio"
-          [options]="dropdownItems"
-          optionLabel="name"
-          
+           id="servicio"
+           [options]="servicios_list"
+           optionLabel="nombre"          
+           optionValue="id"
+           formControlName="serviciol_id"
         ></p-dropdown>
       </div>
-      <div class="field col-12 md:col-6">
-        <label htmlFor="localidad">Localidad</label>
-        <p-dropdown
-          id="localidad"
-          [options]="dropdownItems"
-          optionLabel="name"          
-        ></p-dropdown>
-      </div>
-      <div class="field col-12 md:col-6">
-        <label htmlFor="calle">Calle</label>
-        <input pInputText id="calle" type="text" />
-      </div>
-      <div class="field col-12 md:col-6">
-        <label htmlFor="numero">Número</label>
-        <input disabled pInputText id="numero" type="text" />
-      </div>
-  
-      <div class="field col-12 md:col-6">
-        <label htmlFor="telefono">Teléfono</label>
-        <input
-          disabled
-          pInputText
-          id="telefono"
-          type="text"
-        />
-      </div>
-      <div class="field col-12 md:col-6">
-        <label htmlFor="mail">Mail</label>
-        <input disabled pInputText id="mail" type="text" />
-      </div>
+      
     </div>
 </form>
 <div class="col-12">
@@ -123,7 +104,7 @@
 <hr>
 
 
-
+<!-- 
 <pre>
 Estado del Formulario: {{forma.valid}}
 <br>
@@ -131,4 +112,4 @@ Status: {{forma.status}}
 </pre>
 <pre>
 {{forma.value | json}}
-</pre>
+</pre> -->

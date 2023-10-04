@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
 import { BadgeModule } from 'primeng/badge';
@@ -18,6 +17,8 @@ import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { LayoutRoutingModule } from './layout-routing.module';
+import { EquipostModule } from '../equipost/equipost.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -29,10 +30,9 @@ import { LayoutRoutingModule } from './layout-routing.module';
         AppLayoutComponent,
     ],
     imports: [
-        BrowserModule,
+        CommonModule,        
         FormsModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
+        HttpClientModule,        
         InputTextModule,
         SidebarModule,
         BadgeModule,
@@ -41,7 +41,8 @@ import { LayoutRoutingModule } from './layout-routing.module';
         RippleModule,
         RouterModule,
         AppConfigModule,
-        LayoutRoutingModule
+        LayoutRoutingModule,
+        EquipostModule
     ],
     exports: [AppLayoutComponent]
 })

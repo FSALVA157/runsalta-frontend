@@ -6,6 +6,8 @@ import { Message } from 'primeng/api';
 import { EquipostService } from '../../../equipost/services/equipost.service';
 import { IEquipoT } from 'src/app/equipost/interfaces/equipot_interface';
 import { LocalStorageService } from '../../../services/local-storage.service';
+import { ServicioslService } from '../../../serviciosl/services/serviciosl.service';
+import { IServicio } from 'src/app/serviciosl/interfaces/serviciosl.interface';
 
 @Component({
   selector: 'legajos-add-form',
@@ -15,7 +17,7 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 export class AddLegajoFormComponent implements OnInit {
   forma!: FormGroup;
   equipost_list: IEquipoT[] = [];
-
+  servicios_list: IServicio[] = [];
   @Output()
   actualizarLista: EventEmitter<void>;
 
@@ -23,22 +25,33 @@ export class AddLegajoFormComponent implements OnInit {
     private legajoService: LegajoService,
     private fb: FormBuilder,
     private equipostService: EquipostService,
+    private servicioslService: ServicioslService,
     private localStorageService: LocalStorageService
     ) {
     this.crearFormulario();
     this.actualizarLista = new EventEmitter<void>();
   }
   ngOnInit(): void {
-    this.verificaDataEquiposT();        
+    this.verificaDataLocalStorage();        
   }
 
   //metodo que se ejecuta en cada inicio y verifica la data de equipost en el local storage
-  verificaDataEquiposT(){
-    const data_storage = localStorage.getItem('equipost_list');
+  verificaDataLocalStorage(){
+    //verificamos la data de equipos territoriales
+    const data_storage = localStorage.getItem('equipost_list');    
     if(!data_storage || data_storage.length == 0){
-      this.cargarEquiposT();
-      console.log("No tenemos datos de equipos en el ls!")
-    }
+      this.cargarEquiposT();      
+    }    
+    this.equipost_list = JSON.parse(data_storage!);    
+    this.equipost_list.sort(this.compararPorNombre)
+
+    //verificamos la data de servicios locales
+    const servicios_storage = localStorage.getItem('serviciosl_list');    
+    if(!servicios_storage || servicios_storage.length == 0){
+      this.cargarServiciosL();      
+    }    
+    this.servicios_list = JSON.parse(servicios_storage!);    
+    this.servicios_list.sort(this.compararPorNombre)
   }
 
   //metodo que peticion al backend y carga los equipos territoriales en el local storage y en la variable local  
@@ -47,11 +60,39 @@ export class AddLegajoFormComponent implements OnInit {
       this.equipost_list = equipo.data.map((equipo) => {
         return {
           id: equipo.id_equipo,
-          nombre: equipo.nombre
+          nombre: equipo.nombre,
         };
       });
       this.localStorageService.setItem('equipost_list',this.equipost_list)
   })
+}
+
+cargarServiciosL(){
+  this.servicioslService.getServiciosl().subscribe((servicio) => {
+    this.servicios_list = servicio.data.map((servicio) => {
+      return {
+        id: servicio.id_serviciol,
+        nombre: servicio.nombre,
+        equipot_id: servicio.equipot_id
+      };
+    });
+    this.localStorageService.setItem('serviciosl_list',this.servicios_list)
+})
+}
+
+  // Función de comparación personalizada para ordenar por nombre, que sera utlizada para ordenar los datos de dropdowns
+ compararPorNombre(a: any, b: any) {
+  const nombreA = a.nombre.toUpperCase();
+  const nombreB = b.nombre.toUpperCase();
+
+  if (nombreA < nombreB) {
+    return -1;
+  }
+  if (nombreA > nombreB) {
+    return 1;
+  }
+
+  return 0;
 }
 
   // selectedState: any = null;
@@ -127,6 +168,8 @@ export class AddLegajoFormComponent implements OnInit {
         [],
       ],
       sexo_id: [null, [Validators.required], []],
+      equipot_id: [null, [], []],
+      serviciol_id: [null, [], []],
       
     });
   }
@@ -149,6 +192,8 @@ export class AddLegajoFormComponent implements OnInit {
       nro_documento: this.forma.get('nro_documento')?.value,
       referencia_llamada102: 'referencia_llamada_test',
       sexo_id: this.forma.get('sexo_id')?.value,
+      equipot_id: this.forma.get('equipot_id')?.value,
+      serviciol_id: this.forma.get('serviciol_id')?.value
     };
 
     this.legajoService.postLegajo(dataLegajo).subscribe({

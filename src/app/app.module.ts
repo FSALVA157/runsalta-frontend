@@ -14,22 +14,20 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { SharedModule } from './shared/shared.module';
+import { EquipostModule } from './equipost/equipost.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AppLayoutModule,
-    SharedModule
+  declarations: [AppComponent],
+  imports: [BrowserModule,
+    BrowserAnimationsModule,
+     AppRoutingModule, SharedModule, EquipostModule,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     CountryService, CustomerService, EventService, IconService, NodeService,
     PhotoService, ProductService
-],
-  bootstrap: [AppComponent]
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

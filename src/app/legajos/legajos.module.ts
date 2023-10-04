@@ -29,6 +29,9 @@ import { SharedModule } from '../shared/shared.module';
     MessagesModule,
 		MessageModule,
     SharedModule
+  ],
+  exports: [
+    ListaLegajosComponent
   ]
 })
 export class LegajosModule { }

@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     EquipostRoutingModule,
-    HttpClientModule  ]
+    HttpClientModule  ],
+    exports: [
+      EquipostComponent
+    ]
 })
 export class EquipostModule { }
